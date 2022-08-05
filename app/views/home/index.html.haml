@@ -1,13 +1,66 @@
-%h1
-  Hello#world
-  %p Find me in app/views/home/index.html.erb
+.p-5.mb-4.bg-light.rounded-3
+  .container-fluid.py-4
+    %h1.display-4
+      What do you want to learn today?  
+    
+    %p
 
+    %form.form-inline.my-2.my-lg-0
+      = form_tag(courses_path, method: :get) do
+        .input-group
+          = text_field_tag :title, params[:title], autocomplete: 'off', placeholder: "Search", class: 'form-control-sm'
+          %button.btn.btn-primary.btn-sm{:type => "submit"}
+            %span.fa.fa-search{"aria-hidden" => "true"}
 
-.fa.fa-flag
-.fab.fa-amazon
-= link_to root_path do
-  .fa.fa-home
+.card-group
+  .card.card-body
+    %h1
+      .fa.fa-graduation-cap
+    = Course.count
+    online courses
+    .row
+    Explore a variety of fresh topics
+  .card.card-body
+    %h1
+      .fa.fa-chalkboard-teacher
+      /.fa.fa-brain
+    = Course.distinct.count(:user_id)
+    expert instructors
+    .row
+    Find the right instructor for you
+  .card.card-body
+    %h1
+      .fa.fa-user-graduate
+    = User.count
+    active learners
+    .row
+    Join the knowledge sharing community
+  .card.card-body
+    %h1
+      .fa.fa-infinity
+    Lifetime access
+    .row
+    Learn on your schedule
 
-= link_to courses_path, class: 'btn btn-success' do
-  .fa.fa-book
-  Course
+%hr
+%h2
+  Popular courses
+.row{"data-masonry" => "{\"percentPosition\": true }", :style => "position: relative; height: 842px;"}
+  - @courses.each do |course|
+    = render 'courses/course', course: course
+
+%hr
+%h2 
+  Top rated courses
+.row{"data-masonry" => "{\"percentPosition\": true }", :style => "position: relative; height: 842px;"}
+  - @courses.each do |course|
+    = render 'courses/course', course: course
+
+%hr
+%h2 
+  Latest courses
+.row{"data-masonry" => "{\"percentPosition\": true }", :style => "position: relative; height: 842px;"}
+  - @latest_couses.each do |course|
+    = render 'courses/course', course: course
+
+%hr

@@ -1,24 +1,11 @@
 %h1 
   Courses: 
   = @courses.count
-%table.table
-  %thead
-    %tr
-      %th Title
-      %th Description
-      %th
-      %th
-      %th
 
-  %tbody
-    - @courses.each do |course|
-      %tr
-        %td= course.title
-        %td= course.description
-        %td= course.user
-        %td= link_to 'Show', course
-        %td= link_to 'Edit', edit_course_path(course)
-        %td= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }
+
+.row{"data-masonry" => "{\"percentPosition\": true }", :style => "position: relative; height: 842px;"}
+  - @courses.each do |course|
+    = render "courses/course", course: course
 
 %br
 
