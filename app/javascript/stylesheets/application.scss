@@ -1,3 +1,6 @@
 @import "./actiontext.scss";
 @import "bootstrap";
 // body { background-color: #ede3d5; }
+
+.form-control.is-invalid{ background-image: none; }
+.form-control.is-valid{ background-image: none; }
