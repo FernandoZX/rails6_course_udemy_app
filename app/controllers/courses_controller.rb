@@ -3,12 +3,14 @@ class CoursesController < ApplicationController
 
   # GET /courses or /courses.json
   def index
-    @courses = if params[:title]
-                 Course.where("lower(title) ILIKE '%#{params[:title]}%'")
-               else
-                 @q = Course.ransack(params[:q])
-                 @q.result.includes(:user)
-               end
+    # @courses = if params[:title]
+    #              Course.where("lower(title) ILIKE '%#{params[:title]}%'")
+    #            else
+    #              @q = Course.ransack(params[:q])
+    #              @q.result.includes(:user)
+    #            end
+    @ransack_courses = Course.ransack(params[:courses_search], search_key: :courses_search)
+    @courses = @ransack_courses.result.includes(:user)
   end
 
   # GET /courses/1 or /courses/1.json
