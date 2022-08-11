@@ -9,6 +9,12 @@ class CoursesController < ApplicationController
     #              @q = Course.ransack(params[:q])
     #              @q.result.includes(:user)
     #            end
+    #if current_user.has_role?(:admin)
+    #  @ransack_courses = Course.ransack(params[:courses_search], search_key: :courses_search)
+    #  @courses = @ransack_courses.result.includes(:user)
+    #else
+    #  redirect_to root_path, alert: 'You do not have access'
+    #end
     @ransack_courses = Course.ransack(params[:courses_search], search_key: :courses_search)
     @courses = @ransack_courses.result.includes(:user)
   end
@@ -19,14 +25,18 @@ class CoursesController < ApplicationController
   # GET /courses/new
   def new
     @course = Course.new
+    authorize @course
   end
 
   # GET /courses/1/edit
-  def edit; end
+  def edit 
+    authorize @course
+  end
 
   # POST /courses or /courses.json
   def create
     @course = Course.new(course_params)
+    authorize @course
     @course.user = current_user
     respond_to do |format|
       if @course.save
@@ -41,6 +51,7 @@ class CoursesController < ApplicationController
 
   # PATCH/PUT /courses/1 or /courses/1.json
   def update
+    authorize @course
     respond_to do |format|
       if @course.update(course_params)
         format.html { redirect_to course_url(@course), notice: 'Course was successfully updated.' }
@@ -54,6 +65,7 @@ class CoursesController < ApplicationController
 
   # DELETE /courses/1 or /courses/1.json
   def destroy
+    authorize @course
     @course.destroy
 
     respond_to do |format|

@@ -4,6 +4,7 @@
     %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarSupportedContent", "data-bs-toggle" => "collapse", :type => "button"}
       %span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse
+      /- if current_user && current_user.has_role?(:admin)
       - if current_user
         %ul.navbar-nav.mr-auto
           %li.nav-item{class: "#{'active fw-bold' if current_page?(root_path)}"}
@@ -43,7 +44,7 @@
               Activity
           %li.nav-item.dropdown
             %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#", :role => "button"}
-              %b= current_user.email
+              %b= current_user.username
             %ul.dropdown-menu{"aria-labelledby" => "navbarDropdown"}
               %li
                 = link_to edit_user_registration_path, class: "dropdown-item" do

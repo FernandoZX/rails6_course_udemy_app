@@ -37,6 +37,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'faker'
   gem 'dotenv-rails'
+  gem 'rubocop'
 end
 
 group :development do
@@ -62,3 +63,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "haml-rails", "~> 2.0"
 gem 'simple_form'
+gem "rolify"
+gem "pundit"
