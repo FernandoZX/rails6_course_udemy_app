@@ -1,4 +1,4 @@
-.col-sm-8.col-md-4.mb-4
+.col-lg-6.col-md-4.mb-4
   .card 
     .card-header
       .fa.fa-graduation-cap
@@ -8,6 +8,9 @@
     .card-footer
       .text-center
         = number_to_currency(course.price)
+    .card-footer
+      .fa.fa-book
+      = course.lessons.count
     .card-footer
       .row
         .col-md-6
@@ -26,9 +29,10 @@
           .text-right
             .fa.fa-chalkboard-teacher
             = course.user.username
-    - if policy(course).edit?
-      .card-footer
-        /- if policy(course).edit?
-        = link_to 'Edit', edit_course_path(course), class: 'btn btn-sm btn-warning'
-        /- if policy(course).destroy?
-        = link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger'
+    - if current_user
+      - if policy(course).edit?
+        .card-footer
+          /- if policy(course).edit?
+          = link_to 'Edit', edit_course_path(course), class: 'btn btn-sm btn-warning'
+          /- if policy(course).destroy?
+          = link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger'

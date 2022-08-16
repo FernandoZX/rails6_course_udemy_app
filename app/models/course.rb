@@ -2,6 +2,7 @@ class Course < ApplicationRecord
   extend FriendlyId
   include PublicActivity::Model
   belongs_to :user
+  has_many :lessons, dependent: :destroy
   friendly_id :title, use: :slugged
   has_rich_text :description
   tracked owner: Proc.new{ |controller, model| controller.current_user }
