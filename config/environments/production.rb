@@ -5,6 +5,13 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
+
+  Rails.application.config.middleware.use ExceptionNotification::Rack,
+    email: {
+      email_prefix: '[PREFIX] ',
+      sender_address: %{"app error" <app272635787@heroku.com>},
+      exception_recipients: %w{ingfernandoc@gmail.com}
+    }
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
