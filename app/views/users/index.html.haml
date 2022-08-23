@@ -1,7 +1,7 @@
 .container-fluid 
-  .row{"data-masonry" => "{\"percentPosition\": true }", :style => "position: relative; height: relative"}
-    - @users.each do |user|
-      = render 'users/user', user: user
+  -# .row{"data-masonry" => "{\"percentPosition\": true }", :style => "position: relative; height: relative"}
+  -#   - @users.each do |user|
+  -#     = render 'users/user', user: user
 
 .container-fluid
   .form-inline
@@ -25,6 +25,8 @@
         %th= 'last_sign_in_at'.humanize
         %th= 'current_sign_in_ip'.humanize
         %th= 'last_sign_in_ip'.humanize
+        %th Confirmed?
+        %th Roles
     %tbody
       - @users.each do |user|
         %tr
@@ -36,3 +38,10 @@
           %td= user.last_sign_in_at
           %td= user.current_sign_in_ip
           %td= user.last_sign_in_ip
+          %td= user.confirmed?
+          %td
+            - user.roles.each do |role|
+              .badge.badge-info
+                = role.name
+            - if policy(user).edit?
+              = link_to 'Edit roles', edit_user_path(user), class: 'btn btn-sm btn-warning'
