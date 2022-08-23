@@ -1,4 +1,4 @@
-.col-lg-6.col-md-4.mb-4
+.col-lg-8.col-md-4.mb-4
   .card 
     .card-header
       .fa.fa-graduation-cap
@@ -28,7 +28,7 @@
         .col-md-7
           .text-right
             .fa.fa-chalkboard-teacher
-            = course.user.username
+            = link_to course.user.username, user_path(course.user)
     - if current_user
       - if policy(course).edit?
         .card-footer

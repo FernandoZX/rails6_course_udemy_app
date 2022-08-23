@@ -6,7 +6,7 @@
 %p
 
 .row
-  .col-md-2
+  .col-md-8
     /= search_form_for @q do |f|
     = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
       = f.label :title
@@ -15,11 +15,13 @@
       = f.search_field :short_description_cont, placeholder: 'Description', class: 'form-control form-control-sm'
       /= f.search_field :language_cont, placeholder: 'Language', class: 'form-control form-control-sm'
       /= f.select :language_cont, ['English', 'Polish', 'Russian'], include_blank: true, class: 'form-control form-control-sm'
+      %p
       = f.label :language
       = f.select :language_cont, Course.languages, include_blank: true
       /= f.search_field :level_cont, placeholder: 'Level', class: 'form-control form-control-sm'
       = f.label :level
       = f.select :level_cont, Course.levels, include_blank: true
+      %p
       = f.label :price
       = f.search_field :price_eq, placeholder: 'Price', class: 'form-control form-control-sm'
       = f.label :teacher
@@ -27,7 +29,7 @@
       = f.submit
     = link_to 'refresh', courses_path
 
-.col-lg-10
+.col-lg-12
   .row{"data-masonry" => "{\"percentPosition\": true }", :style => "position: relative; height: relative"}
     - @courses.each do |course|
       = render "courses/course", course: course
