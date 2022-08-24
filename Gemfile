@@ -69,3 +69,4 @@ gem 'simple_form'
 gem "rolify"
 gem "pundit"
 gem 'ranked-model'
+gem 'pagy'

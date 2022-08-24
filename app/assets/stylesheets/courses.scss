@@ -1,3 +1,9 @@
 // Place all the styles related to the Courses controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.masonry-column {
+  padding: 0 1px;
+}
+.masonry-grid > div {
+  margin: 5px 1px;
+}

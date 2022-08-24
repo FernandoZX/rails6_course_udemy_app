@@ -30,9 +30,12 @@
     = link_to 'refresh', courses_path
 
 .col-lg-12
-  .row{"data-masonry" => "{\"percentPosition\": true }", :style => "position: relative; height: relative"}
+  .row.masonry-grid
     - @courses.each do |course|
-      = render "courses/course", course: course
+      .col-md-6.col-lg-4.masonry-column
+        %div
+          = render "courses/course", course: course
+  != pagy_bootstrap_nav(@pagy)
 
 %br
 
