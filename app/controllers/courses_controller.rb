@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
+# Courses Controller
 class CoursesController < ApplicationController
   before_action :set_course, only: %i[show edit update destroy]
-
+  before_action :create_course, only: :create
   # GET /courses or /courses.json
   def index
     # @courses = if params[:title]
@@ -9,19 +12,19 @@ class CoursesController < ApplicationController
     #              @q = Course.ransack(params[:q])
     #              @q.result.includes(:user)
     #            end
-    #if current_user.has_role?(:admin)
+    # if current_user.has_role?(:admin)
     #  @ransack_courses = Course.ransack(params[:courses_search], search_key: :courses_search)
     #  @courses = @ransack_courses.result.includes(:user)
-    #else
+    # else
     #  redirect_to root_path, alert: 'You do not have access'
-    #end
+    # end
     @ransack_courses = Course.ransack(params[:courses_search], search_key: :courses_search)
     # @courses = @ransack_courses.result.includes(:user)
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
   end
 
   # GET /courses/1 or /courses/1.json
-  def show 
+  def show
     @lessons = @course.lessons
   end
 
@@ -32,15 +35,13 @@ class CoursesController < ApplicationController
   end
 
   # GET /courses/1/edit
-  def edit 
+  def edit
     authorize @course
   end
 
   # POST /courses or /courses.json
   def create
-    @course = Course.new(course_params)
     authorize @course
-    @course.user = current_user
     respond_to do |format|
       if @course.save
         format.html { redirect_to course_url(@course), notice: 'Course was successfully created.' }
@@ -82,6 +83,11 @@ class CoursesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_course
     @course = Course.friendly.find(params[:id])
+  end
+
+  def create_course
+    @course = Course.new(course_params)
+    @course.user = current_user
   end
 
   # Only allow a list of trusted parameters through.

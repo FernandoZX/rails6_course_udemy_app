@@ -1,3 +1,28 @@
+# frozen_string_literal: true
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :bigint           not null, primary key
+#  email                  :string           default(""), not null
+#  encrypted_password     :string           default(""), not null
+#  reset_password_token   :string
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  sign_in_count          :integer          default(0), not null
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :inet
+#  last_sign_in_ip        :inet
+#  confirmation_token     :string
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  unconfirmed_email      :string
+#  slug                   :string
+#
 class User < ApplicationRecord
   extend FriendlyId
   rolify
@@ -6,27 +31,27 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable, :confirmable
   has_many :courses
+  has_many :enrollments
   validate :must_have_a_role, on: :update
   after_create :assign_default_role
   friendly_id :email, use: :slugged
-
 
   def to_s
     email
   end
 
   def username
-    self.email.split(/@/).first
+    email.split(/@/).first
   end
 
   def assign_default_role
     if User.count == 1
-      self.add_role(:admin) if self.roles.blank?
-      self.add_role(:teacher)
-      self.add_role(:student)
+      add_role(:admin) if roles.blank?
+      add_role(:teacher)
+      add_role(:student)
     else
-      self.add_role(:student) if self.roles.blank?
-      self.add_role(:teacher) #if you want any user to be able to create own courses
+      add_role(:student) if roles.blank?
+      add_role(:teacher) # if you want any user to be able to create own courses
     end
   end
 
@@ -37,9 +62,6 @@ class User < ApplicationRecord
   private
 
   def must_have_a_role
-    unless roles.any?
-      errors.add(:roles, "must have at least one role")
-    end
+    errors.add(:roles, 'must have at least one role') unless roles.any?
   end
-
 end

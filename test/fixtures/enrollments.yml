@@ -1,22 +1,27 @@
 # == Schema Information
 #
-# Table name: lessons
+# Table name: enrollments
 #
 #  id         :bigint           not null, primary key
-#  title      :string
-#  content    :text
 #  course_id  :bigint           not null
+#  user_id    :bigint           not null
+#  rating     :integer
+#  price      :integer
+#  review     :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  slug       :string
 #
 
 one:
-  title: MyString
-  content: MyText
   course: one
+  user: one
+  rating: 1
+  price: 1
+  review: MyText
 
 two:
-  title: MyString
-  content: MyText
   course: two
+  user: two
+  rating: 1
+  price: 1
+  review: MyText

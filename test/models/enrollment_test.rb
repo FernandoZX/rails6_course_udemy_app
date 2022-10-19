@@ -1,18 +1,19 @@
 # == Schema Information
 #
-# Table name: lessons
+# Table name: enrollments
 #
 #  id         :bigint           not null, primary key
-#  title      :string
-#  content    :text
 #  course_id  :bigint           not null
+#  user_id    :bigint           not null
+#  rating     :integer
+#  price      :integer
+#  review     :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  slug       :string
 #
 require "test_helper"
 
-class LessonTest < ActiveSupport::TestCase
+class EnrollmentTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

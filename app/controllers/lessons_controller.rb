@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
+# Lessons Controller
 class LessonsController < ApplicationController
-  before_action :set_lesson, only: %i[ show edit update destroy ]
+  before_action :set_lesson, only: %i[show edit update destroy]
 
   # GET /lessons or /lessons.json
   def index
@@ -7,8 +10,7 @@ class LessonsController < ApplicationController
   end
 
   # GET /lessons/1 or /lessons/1.json
-  def show
-  end
+  def show; end
 
   # GET /lessons/new
   def new
@@ -65,14 +67,15 @@ class LessonsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_lesson
-      @course = Course.friendly.find(params[:course_id])
-      @lesson = Lesson.friendly.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def lesson_params
-      params.require(:lesson).permit(:title, :content)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_lesson
+    @course = Course.friendly.find(params[:course_id])
+    @lesson = Lesson.friendly.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def lesson_params
+    params.require(:lesson).permit(:title, :content)
+  end
 end

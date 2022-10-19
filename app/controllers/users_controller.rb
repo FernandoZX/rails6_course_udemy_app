@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
+# Users Controller
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show,:edit, :update]
+  before_action :set_user, only: %i[show edit update]
   def index
     @q = User.ransack(params[:q])
     @users = @q.result(distinct: true)
@@ -27,6 +30,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit({role_ids: []})
+    params.require(:user).permit({ role_ids: [] })
   end
 end

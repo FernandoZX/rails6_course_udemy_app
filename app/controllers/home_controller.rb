@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
+# Home Controller
 class HomeController < ApplicationController
-  skip_before_action :authenticate_user!, :only => [:index]
+  skip_before_action :authenticate_user!, only: [:index]
 
   def index
     @courses = Course.all.limit(3)

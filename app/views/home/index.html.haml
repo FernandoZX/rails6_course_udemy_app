@@ -1,3 +1,8 @@
+- content_for :title do
+  Course App
+  \| 
+  Online Courses - Learn Anything, On Your Schedule
+
 .p-5.mb-4.bg-light.rounded-3
   .container-fluid.py-4
     %h1.display-4
@@ -53,22 +58,28 @@
 %hr
 %h2
   Popular courses
-.row{"data-masonry" => "{\"percentPosition\": true }", :style => "position: relative; height: 842px;"}
+.row.masonry-grid
   - @courses.each do |course|
-    = render 'courses/course', course: course
+    .col-md-6.col-lg-4.masonry-column
+      %div
+        = render 'courses/course', course: course
 
 %hr
 %h2 
   Top rated courses
-.row{"data-masonry" => "{\"percentPosition\": true }", :style => "position: relative; height: 842px;"}
+.row.masonry-grid
   - @courses.each do |course|
-    = render 'courses/course', course: course
+    .col-md-6.col-lg-4.masonry-column
+      %div
+        = render 'courses/course', course: course
 
 %hr
 %h2 
   Latest courses
-.row{"data-masonry" => "{\"percentPosition\": true }", :style => "position: relative; height: 842px;"}
+.row.masonry-grid
   - @latest_couses.each do |course|
-    = render 'courses/course', course: course
+    .col-md-6.col-lg-4.masonry-column
+      %div
+        = render 'courses/course', course: course
 
 %hr
