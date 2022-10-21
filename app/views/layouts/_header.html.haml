@@ -54,6 +54,10 @@
               %b= current_user.username
             %ul.dropdown-menu{"aria-labelledby" => "navbarDropdown"}
               %li
+                = link_to user_path(current_user), class: "dropdown-item" do
+                  .fa.fa-user
+                  %b My profile
+              %li
                 = link_to edit_user_registration_path, class: "dropdown-item" do
                   .fa.fa-cog
                   %b Account settings
