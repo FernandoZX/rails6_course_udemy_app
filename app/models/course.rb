@@ -41,4 +41,8 @@ class Course < ApplicationRecord
   def self.levels
     LEVELS.map { |level| [level, level] }
   end
+
+  def bought(user)
+    enrollments.where(user_id: [user.id], course_id: [id].empty?)
+  end
 end

@@ -6,8 +6,9 @@ Rails.application.routes.draw do
   devise_for :users
   resources :courses do
     resources :lessons
+    resources :enrollments, only: %i[new create]
   end
-  resources :users, only: [:index, :edit, :show, :update]
+  resources :users, only: %i[index edit show update]
   get 'home/index'
   get 'home/activity'
   root 'home#index'
