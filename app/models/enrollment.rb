@@ -14,6 +14,7 @@
 #  updated_at :datetime         not null
 #
 class Enrollment < ApplicationRecord
+  extend FriendlyId
   belongs_to :course
   belongs_to :user
 
@@ -23,6 +24,10 @@ class Enrollment < ApplicationRecord
   validates_uniqueness_of :course_id, scope: :user_id  # user cant be subscribed to the same course twice
 
   validate :cant_subscribe_to_own_course  # user can't create a subscription if course.user == current_user.id
+
+  scope :pending_review, -> { where(rating: [0, nil, ""], review: [0, nil, ""]) }
+  extend FriendlyId
+  friendly_id :to_s, use: :slugged
 
   def to_s
     "#{user}  #{course}"

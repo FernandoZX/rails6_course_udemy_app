@@ -6,7 +6,9 @@ class EnrollmentsController < ApplicationController
   before_action :set_course, only: [:new, :create]
   # GET /enrollments or /enrollments.json
   def index
-    @enrollments = Enrollment.all
+    # @pagy, @enrollments = pagy(Enrollment.all)
+    @q = Enrollment.ransack(params[:q])
+    @pagy, @enrollments = pagy(@q.result.includes(:user))
     authorize @enrollments
   end
 
@@ -62,7 +64,7 @@ class EnrollmentsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_enrollment
-    @enrollment = Enrollment.find(params[:id])
+    @enrollment = Enrollment.friendly.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
